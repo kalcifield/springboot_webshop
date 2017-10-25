@@ -1,13 +1,18 @@
 package com.codecool.springwebshop.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
-@Table(name = "Costumer")
-public class Costumer {
+@Table(name = "Customer")
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private Set<Role> roles;
+
+    private String passwordConfirm;
 
     @Column(name = "username")
     private String username;
@@ -15,11 +20,19 @@ public class Costumer {
     @Column(name = "password")
     private String password;
 
+    @Transient
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
 
-    public Costumer(){}
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
+
+    public Customer(){}
 
 
-    public Costumer(String username, String password) {
+    public Customer(String username, String password) {
         this.username = username;
         this.password = password;
     }
@@ -49,9 +62,19 @@ public class Costumer {
         this.password = password;
     }
 
+    @ManyToMany
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public String toString() {
-        return "Costumer{" +
+        return "Customer{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +

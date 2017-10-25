@@ -67,12 +67,12 @@
                         <!-- Modal content -->
                         <div class="modal-content">
                             <span class="close">&times;</span>
-                            <form th:action="@{/}" th:object="${costumer}" method="post">
+                            <form th:action="@{/}" th:object="${customer}" method="post">
                                 <div class="form-group">
                                     <label for="username">Username:</label>
                                     <input th:field="*{username}" type="text" class="form-control" name="username"
                                            id="username" placeholder="Username"/>
-                                </div>User
+                                </div>
                                 <div class="form-group">
                                     <label for="password">Password:</label>
                                     <input th:field="*{password}" type="password" class="form-control"
