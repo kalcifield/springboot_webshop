@@ -11,8 +11,12 @@ import org.springframework.validation.Validator;
 
 @Component
 public class CustomerValidator implements Validator {
+    private final CustomerService customerService;
+
     @Autowired
-    private CustomerService customerService;
+    public CustomerValidator(CustomerService customerService) {
+        this.customerService = customerService;
+    }
 
     @Override
     public boolean supports(Class<?> aClass) {

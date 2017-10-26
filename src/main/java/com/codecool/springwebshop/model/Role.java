@@ -11,7 +11,7 @@ public class Role {
     private Set<Customer> customers;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -33,10 +33,7 @@ public class Role {
         return customers;
     }
 
-    public void setUsers(Set<Customer> customers) {
+    public void setCustomers(Set<Customer> customers) {
         this.customers = customers;
-    }
-
-    public Role() {
     }
 }

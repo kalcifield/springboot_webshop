@@ -1,6 +1,8 @@
 package com.codecool.springwebshop.model;
 
 import javax.persistence.*;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -10,7 +12,7 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Set<Role> roles;
+    private HashSet<Role> roles;
 
     private String passwordConfirm;
 
@@ -68,7 +70,7 @@ public class Customer {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(HashSet<Role> roles) {
         this.roles = roles;
     }
 

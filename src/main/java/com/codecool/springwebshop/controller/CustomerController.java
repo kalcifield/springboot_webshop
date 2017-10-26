@@ -41,36 +41,41 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class CustomerController {
-    @Autowired
-    private CustomerService userService;
+    private final CustomerService userService;
+
+    private final SecurityService securityService;
+
+    private final CustomerValidator userValidator;
 
     @Autowired
-    private SecurityService securityService;
-
-    @Autowired
-    private CustomerValidator userValidator;
-
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String registration(Model model) {
-        model.addAttribute("userForm", new Customer());
-
-        return "registration";
+    public CustomerController(CustomerService userService, SecurityService securityService, CustomerValidator userValidator) {
+        this.userService = userService;
+        this.securityService = securityService;
+        this.userValidator = userValidator;
     }
-
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") Customer userForm, BindingResult bindingResult, Model model) {
-        userValidator.validate(userForm, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            return "registration";
-        }
-
-        userService.save(userForm);
-
-        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
-
-        return "redirect:/welcome";
-    }
+//
+//    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+//    public String registration(Model model) {
+//        model.addAttribute("userForm", new Customer());
+//
+//
+//        return "registration";
+//    }
+//
+//    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+//    public String registration(@ModelAttribute("userForm") Customer userForm, BindingResult bindingResult, Model model) {
+//        userValidator.validate(userForm, bindingResult);
+//
+//        if (bindingResult.hasErrors()) {
+//            return "registration";
+//        }
+//
+//        userService.save(userForm);
+//
+//        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+//
+//        return "redirect:/welcome";
+//    }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
